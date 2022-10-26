@@ -4,49 +4,42 @@ import static com.example.javaandroid.Constantes.Constantes.passwordDB;
 import static com.example.javaandroid.Constantes.Constantes.userDB;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import com.example.javaandroid.AsynTaskS.TareaAsincronaLogin;
 import com.example.javaandroid.DataBase.DataBase;
-import com.example.javaandroid.DataBase.UserDAO;
-import com.example.javaandroid.DataBase.UserEntity;
-import com.example.javaandroid.MainActivity;
 import com.example.javaandroid.Modelos.Usuario;
-import com.example.javaandroid.Presentador.MainPresenter;
+import com.example.javaandroid.Presentador.MainPresenterLogin;
 import com.example.javaandroid.interfaces.InterfaceMain;
 
-import java.util.List;
+public class MainModeloLogin implements InterfaceMain.ModeloLogin {
 
-public class MainModelo implements InterfaceMain.Modelo {
-
-    InterfaceMain.Presenter presenter;
+    InterfaceMain.PresenterLogin presenterLogin;
     Context ctx;
     Usuario admin;
     DataBase db;
     AppCompatActivity activity;
     TareaAsincronaLogin asyncTask;
 
-    public MainModelo(MainPresenter mainPresenter, Context ctx, AppCompatActivity activity) {
-        this.presenter = mainPresenter;
+    public MainModeloLogin(MainPresenterLogin mainPresenter, Context ctx, AppCompatActivity activity) {
+        this.presenterLogin = mainPresenter;
         this.ctx = ctx;
         this.activity = activity;
     }
 
     @Override
     public void logearCredenciales(String user, String password) {
-        asyncTask = new TareaAsincronaLogin(activity ,ctx, presenter, admin);
+        asyncTask = new TareaAsincronaLogin(activity ,ctx, presenterLogin, admin);
         asyncTask.execute("giuseppe");
         if(user.equals(userDB) && password.equals(passwordDB)){
                 admin = new Usuario("Giuseppe");
                 admin.setUsuario(user);
                 admin.setClave(password);
-                presenter.datosLoginVista(admin);
+                presenterLogin.datosLoginVista(admin);
 
         }else{
-            presenter.mostrarErrorPresenter("Datos No Validos");
+            presenterLogin.mostrarErrorPresenter("Datos No Validos");
         }
     }
 }

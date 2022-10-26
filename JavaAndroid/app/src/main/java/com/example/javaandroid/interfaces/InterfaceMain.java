@@ -4,21 +4,41 @@ import com.example.javaandroid.Modelos.Usuario;
 
 public interface InterfaceMain {
 
-    interface Presenter{
+    interface PresenterLogin {
         void datosLogin(String usuario, String clave);
 
         void datosLoginVista(Usuario admin);
         void mostrarErrorPresenter(String error);
     }
 
-    interface Vista{
+    interface VistaLogin {
         void datosLogin(String user, String password);
         void datosLoginVista(Usuario admin);
 
         void mostrarErrorMain(String error);
     }
 
-    interface Modelo{
+    interface ModeloLogin {
         void logearCredenciales(String user, String password);
     }
+
+    interface PresenterRegistrar{
+        void datosLogin(String usuario, String clave);
+
+        void datosLoginVista(Usuario admin);
+        void mostrarErrorPresenter(String error);
+    }
+
+    interface VistaRegistrar{
+        void datosLogin(String user, String password);
+        void datosLoginVista(Usuario admin);
+
+        void mostrarErrorMain(String error);
+    }
+
+    interface ModeloRegistrar{
+        void logearCredenciales(String user, String password);
+    }
+
+
 }

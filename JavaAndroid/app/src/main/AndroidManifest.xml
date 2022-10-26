@@ -13,6 +13,9 @@
             android:name=".Vista.StartActivity"
             android:exported="true" />
         <activity
+            android:name=".Vista.MainVista"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

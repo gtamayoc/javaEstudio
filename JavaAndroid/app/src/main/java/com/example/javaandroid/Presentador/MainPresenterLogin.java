@@ -4,25 +4,25 @@ import android.content.Context;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.javaandroid.Modelo.MainModelo;
+import com.example.javaandroid.Modelo.MainModeloLogin;
 import com.example.javaandroid.Modelos.Usuario;
 import com.example.javaandroid.interfaces.InterfaceMain;
 
-public class MainPresenter implements InterfaceMain.Presenter {
+public class MainPresenterLogin implements InterfaceMain.PresenterLogin {
 
-    InterfaceMain.Vista vista;
-    InterfaceMain.Modelo modelo;
+    InterfaceMain.VistaLogin vistaLogin;
+    InterfaceMain.ModeloLogin modeloLogin;
     Usuario admin;
 
-    public MainPresenter(InterfaceMain.Vista vista, Context ctx, AppCompatActivity activity) {
-        this.vista = vista;
-        this.modelo = new MainModelo(MainPresenter.this, ctx, activity);
+    public MainPresenterLogin(InterfaceMain.VistaLogin vistaLogin, Context ctx, AppCompatActivity activity) {
+        this.vistaLogin = vistaLogin;
+        this.modeloLogin = new MainModeloLogin(MainPresenterLogin.this, ctx, activity);
     }
 
     @Override
     public void datosLogin(String usuario, String clave) {
         if(!usuario.equals("") && !clave.equals("")){
-            modelo.logearCredenciales(usuario,clave);
+            modeloLogin.logearCredenciales(usuario,clave);
         }else{
             mostrarErrorPresenter("Credenciales No VALIDAS");
         }
@@ -30,11 +30,11 @@ public class MainPresenter implements InterfaceMain.Presenter {
 
     @Override
     public void datosLoginVista(Usuario admin) {
-        vista.datosLoginVista(admin);
+        vistaLogin.datosLoginVista(admin);
     }
 
     @Override
     public void mostrarErrorPresenter(String error) {
-        vista.mostrarErrorMain(error);
+        vistaLogin.mostrarErrorMain(error);
     }
 }
