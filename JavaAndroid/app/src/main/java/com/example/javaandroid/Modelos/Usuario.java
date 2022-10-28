@@ -8,6 +8,10 @@ public class Usuario implements Serializable {
     public String usuario;
     public String clave;
 
+    public Usuario() {
+
+    }
+
     public Usuario(String nombre) {
         this.nombre = nombre;
     }

@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain.Vis
     public void iniciarActivity(AppCompatActivity mainActivity, Class<MainVista> mainVistaClass){
         Intent intent = new Intent(mainActivity.getApplicationContext(), mainVistaClass);
         mainActivity.startActivity(intent);
+        finish();
     }
 
     @Override
@@ -74,14 +75,18 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain.Vis
 
     @Override
     public void datosLoginVista(Usuario admin) {
-        asyncTask = new TareaAsincronaLogin(MainActivity.this,ctx, presenterLogin, admin);
-        asyncTask.execute("giuseppe");
-        tv.setText(admin.toString());
+        tv.setText(admin.getNombre());
     }
 
     @Override
     public void mostrarErrorMain(String error) {
+        tv.setVisibility(View.VISIBLE);
         tv.setText("Su sesion fue : "+error);
+    }
+
+    @Override
+    public void mostrarErrorCampos(String error) {
+        user.setError(error);
     }
 
 }

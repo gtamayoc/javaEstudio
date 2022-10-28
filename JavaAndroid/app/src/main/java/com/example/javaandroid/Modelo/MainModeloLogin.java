@@ -22,7 +22,7 @@ public class MainModeloLogin implements InterfaceMain.ModeloLogin {
     AppCompatActivity activity;
     TareaAsincronaLogin asyncTask;
 
-    public MainModeloLogin(MainPresenterLogin mainPresenter, Context ctx, AppCompatActivity activity) {
+    public MainModeloLogin(InterfaceMain.PresenterLogin mainPresenter, Context ctx, AppCompatActivity activity) {
         this.presenterLogin = mainPresenter;
         this.ctx = ctx;
         this.activity = activity;
@@ -30,16 +30,19 @@ public class MainModeloLogin implements InterfaceMain.ModeloLogin {
 
     @Override
     public void logearCredenciales(String user, String password) {
-        asyncTask = new TareaAsincronaLogin(activity ,ctx, presenterLogin, admin);
-        asyncTask.execute("giuseppe");
-        if(user.equals(userDB) && password.equals(passwordDB)){
-                admin = new Usuario("Giuseppe");
-                admin.setUsuario(user);
-                admin.setClave(password);
-                presenterLogin.datosLoginVista(admin);
+        asyncTask = new TareaAsincronaLogin(activity, ctx, presenterLogin, admin, new TareaAsincronaLogin.loginListener() {
 
-        }else{
-            presenterLogin.mostrarErrorPresenter("Datos No Validos");
-        }
+            @Override
+            public void response(String response) {
+                presenterLogin.mostrarErrorPresenter("Datos Validos"+ response);
+            }
+
+            @Override
+            public void error(String error) {
+                presenterLogin.mostrarErrorPresenter("Datos No Validos : "+error);
+            }
+        });
+
+        asyncTask.execute("1",user,password);
     }
 }

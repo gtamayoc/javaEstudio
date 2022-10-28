@@ -37,4 +37,9 @@ public class MainPresenterLogin implements InterfaceMain.PresenterLogin {
     public void mostrarErrorPresenter(String error) {
         vistaLogin.mostrarErrorMain(error);
     }
+
+    @Override
+    public void mostrarErrorPresenterCampos(String error) {
+        vistaLogin.mostrarErrorCampos(error);
+    }
 }

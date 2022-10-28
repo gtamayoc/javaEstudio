@@ -9,6 +9,8 @@ public interface InterfaceMain {
 
         void datosLoginVista(Usuario admin);
         void mostrarErrorPresenter(String error);
+
+        void mostrarErrorPresenterCampos(String error);
     }
 
     interface VistaLogin {
@@ -16,6 +18,7 @@ public interface InterfaceMain {
         void datosLoginVista(Usuario admin);
 
         void mostrarErrorMain(String error);
+        void mostrarErrorCampos(String error);
     }
 
     interface ModeloLogin {
@@ -23,21 +26,21 @@ public interface InterfaceMain {
     }
 
     interface PresenterRegistrar{
-        void datosLogin(String usuario, String clave);
+        void datosLogin(Usuario user);
 
         void datosLoginVista(Usuario admin);
         void mostrarErrorPresenter(String error);
     }
 
     interface VistaRegistrar{
-        void datosLogin(String user, String password);
+        void datosLogin(Usuario user);
         void datosLoginVista(Usuario admin);
 
         void mostrarErrorMain(String error);
     }
 
     interface ModeloRegistrar{
-        void logearCredenciales(String user, String password);
+        void consultarCredenciales(Usuario user);
     }
 
 
