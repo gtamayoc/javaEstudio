@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.javaandroid.AsynTaskS.TareaAsincronaLogin;
 import com.example.javaandroid.DataBase.DataBase;
 import com.example.javaandroid.Modelos.Usuario;
-import com.example.javaandroid.Presentador.MainPresenterRegister;
 import com.example.javaandroid.interfaces.InterfaceMain;
 
 public class MainModeloRegistrar implements InterfaceMain.ModeloRegistrar {
@@ -30,18 +29,19 @@ public class MainModeloRegistrar implements InterfaceMain.ModeloRegistrar {
 
     @Override
     public void consultarCredenciales(Usuario user) {
-        asyncTask = new TareaAsincronaLogin(activity ,ctx, mainPresenterRegister, admin);
-        asyncTask.execute("1","giuseppe");
-        if(user.getUsuario().equals(userDB) && user.getClave().equals(passwordDB)){
-            admin = new Usuario("Giuseppe");
-            admin.setUsuario(user.usuario);
-            admin.setClave(user.getClave());
-            mainPresenterRegister.datosLoginVista(admin);
+        asyncTask = new TareaAsincronaLogin(activity, ctx, mainPresenterRegister, admin, new TareaAsincronaLogin.registerListener() {
+            @Override
+            public void response(String response) {
+                mainPresenterRegister.datosModelo(user);
+            }
 
-        }else{
-            mainPresenterRegister.mostrarErrorPresenter("Datos No Validos");
-        }
+            @Override
+            public void error(String error) {
 
+            }
+        });
+
+        asyncTask.execute("2",user.getNombre(),user.getUsuario(),user.getClave());
 
     }
 }

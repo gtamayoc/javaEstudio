@@ -1,9 +1,14 @@
 package com.example.javaandroid;
 
+import static com.example.javaandroid.Tools.Tools.iniciarActivity;
+import static com.example.javaandroid.Tools.Tools.iniciarActivityLogin;
+
 import android.content.Context;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +20,10 @@ import com.example.javaandroid.AsynTaskS.TareaAsincronaLogin;
 import com.example.javaandroid.Modelos.Usuario;
 import com.example.javaandroid.Presentador.MainPresenterLogin;
 import com.example.javaandroid.Vista.MainVista;
+import com.example.javaandroid.Vista.StartActivity;
 import com.example.javaandroid.interfaces.InterfaceMain;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements InterfaceMain.VistaLogin {
 
@@ -26,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain.Vis
     InterfaceMain.PresenterLogin presenterLogin;
     Context ctx;
     TareaAsincronaLogin asyncTask;
+    AppCompatActivity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain.Vis
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppCompatActivity activity = MainActivity.this;
                 iniciarActivity(activity, MainVista.class);
             }
         });
@@ -60,12 +68,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain.Vis
         ingresar = findViewById(R.id.ingresar);
         registrar = findViewById(R.id.registrar);
         pg = findViewById(R.id.progressBar);
-    }
-
-    public void iniciarActivity(AppCompatActivity mainActivity, Class<MainVista> mainVistaClass){
-        Intent intent = new Intent(mainActivity.getApplicationContext(), mainVistaClass);
-        mainActivity.startActivity(intent);
-        finish();
+        activity = MainActivity.this;
     }
 
     @Override
@@ -75,18 +78,38 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain.Vis
 
     @Override
     public void datosLoginVista(Usuario admin) {
-        tv.setText(admin.getNombre());
+        iniciarActivityLogin(activity, StartActivity.class, admin);
     }
 
     @Override
     public void mostrarErrorMain(String error) {
         tv.setVisibility(View.VISIBLE);
-        tv.setText("Su sesion fue : "+error);
+        tv.setText(""+error);
     }
 
     @Override
     public void mostrarErrorCampos(String error) {
-        user.setError(error);
+        CharSequence chse = error;
+        user.setError(" "+error);
     }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Cerrar Aplicacion");
+
+        alertDialogBuilder
+                .setMessage("Hola, ¿Deseas Salir de la Aplicación?")
+                .setCancelable(false)
+                .setPositiveButton("Si",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        dialog.cancel();
+                    }
+                }).create().show();
+    }
 }

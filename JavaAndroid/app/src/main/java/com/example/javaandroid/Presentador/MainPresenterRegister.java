@@ -22,7 +22,7 @@ public class MainPresenterRegister implements InterfaceMain.PresenterRegistrar {
     }
 
     @Override
-    public void datosLogin(Usuario user) {
+    public void datosModelo(Usuario user) {
         String nombre = user.getNombre();
         String usuario = user.getUsuario();
         String clave = user.getClave();

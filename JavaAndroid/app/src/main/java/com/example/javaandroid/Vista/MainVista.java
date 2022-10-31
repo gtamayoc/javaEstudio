@@ -1,9 +1,12 @@
 package com.example.javaandroid.Vista;
 
+import static com.example.javaandroid.Tools.Tools.iniciarActivity;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +17,6 @@ import android.widget.Toast;
 
 import com.example.javaandroid.MainActivity;
 import com.example.javaandroid.Modelos.Usuario;
-import com.example.javaandroid.Presentador.MainPresenterLogin;
 import com.example.javaandroid.Presentador.MainPresenterRegister;
 import com.example.javaandroid.R;
 import com.example.javaandroid.interfaces.InterfaceMain;
@@ -45,7 +47,7 @@ public class MainVista extends AppCompatActivity implements InterfaceMain.VistaR
                 user.setNombre(nombre);
                 user.setUsuario(usuario);
                 user.setClave(clave);
-                datosLogin(user);
+                datosVista(user);
             }
         });
 
@@ -70,15 +72,9 @@ public class MainVista extends AppCompatActivity implements InterfaceMain.VistaR
         presenterRegistrar = new MainPresenterRegister(this, ctx, MainVista.this);
     }
 
-    public void iniciarActivity(AppCompatActivity mainActivity, Class<MainActivity> mainVistaClass){
-        Intent intent = new Intent(mainActivity.getApplicationContext(), mainVistaClass);
-        mainActivity.startActivity(intent);
-        finish();
-    }
-
     @Override
-    public void datosLogin(Usuario user) {
-        presenterRegistrar.datosLogin(user);
+    public void datosVista(Usuario user) {
+        presenterRegistrar.datosModelo(user);
     }
 
     @Override
@@ -91,6 +87,23 @@ public class MainVista extends AppCompatActivity implements InterfaceMain.VistaR
         Toast.makeText(MainVista.this, ""+error, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Cerrar Aplicacion");
 
-
+        alertDialogBuilder
+                .setMessage("Hola, ¿Deseas Salir de la Aplicación?")
+                .setCancelable(false)
+                .setPositiveButton("Si",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                            finish();
+                    }
+                })
+                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        dialog.cancel();
+                    }
+                }).create().show();
+    }
 }

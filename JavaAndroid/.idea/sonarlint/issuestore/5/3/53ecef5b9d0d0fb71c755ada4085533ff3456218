@@ -1,0 +1,10 @@
+
+m
+java:S1104"RMake nombre a static final constant or non-public and provide accessors if needed.(¯‰–‚úÿÿÿÿ
+n
+java:S1104"SMake usuario a static final constant or non-public and provide accessors if needed.(´šÉ›ûÿÿÿÿ
+l
+java:S1104	"QMake clave a static final constant or non-public and provide accessors if needed.(‡–ÁÝøÿÿÿÿ
+1
+java:S1700"Rename field "usuario"(´šÉ›ûÿÿÿÿ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¨¤Â–

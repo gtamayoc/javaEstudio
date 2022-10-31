@@ -13,8 +13,8 @@ public interface UserDAO {
     @Query("SELECT * FROM user")
     List<UserEntity> getAll();
 
-    @Query("SELECT * FROM user WHERE uid IN (:userIds)")
-    List<UserEntity> loadAllByIds(int[] userIds);
+    @Query("SELECT * FROM user WHERE id_user IN (:userIds)")
+    List<UserEntity> loadAllByIds(String[] userIds);
 
     @Query("SELECT * FROM user WHERE first_name LIKE :first " +
             "LIMIT 1")

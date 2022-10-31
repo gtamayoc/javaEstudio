@@ -1,29 +1,32 @@
 package com.example.javaandroid.DataBase;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "user")
+@Entity(tableName = "user", primaryKeys = {"id_user", "user_name"})
 public class UserEntity {
 
-    @PrimaryKey
-    public int uid;
+    @NonNull
+    @ColumnInfo(name = "id_user")
+    public String uid;
 
     @ColumnInfo(name = "first_name")
     public String firstName;
 
+    @NonNull
     @ColumnInfo(name = "user_name")
     public String userName;
 
     @ColumnInfo(name = "password")
     public String password;
 
-    public int getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 

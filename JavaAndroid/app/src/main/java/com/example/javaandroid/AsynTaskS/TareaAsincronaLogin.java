@@ -22,6 +22,7 @@ import com.example.javaandroid.Vista.StartActivity;
 import com.example.javaandroid.interfaces.InterfaceMain;
 
 import java.util.List;
+import java.util.UUID;
 
 public class TareaAsincronaLogin extends AsyncTask<String, Void, String> {
 
@@ -33,6 +34,7 @@ public class TareaAsincronaLogin extends AsyncTask<String, Void, String> {
     InterfaceMain.PresenterLogin presenterLogin;
     InterfaceMain.PresenterRegistrar presenterRegistrar;
     loginListener listener;
+    registerListener listener1;
 
     public TareaAsincronaLogin(AppCompatActivity activity, Context ctx, InterfaceMain.PresenterLogin presenterLogin, Usuario admin, loginListener listener) {
         this.ctx = ctx;
@@ -42,14 +44,20 @@ public class TareaAsincronaLogin extends AsyncTask<String, Void, String> {
         this.listener = listener;
     }
 
-    public TareaAsincronaLogin(AppCompatActivity activity, Context ctx, InterfaceMain.PresenterRegistrar presenterRegistrar, Usuario admin) {
+    public TareaAsincronaLogin(AppCompatActivity activity, Context ctx, InterfaceMain.PresenterRegistrar presenterRegistrar, Usuario admin, registerListener listener) {
         this.ctx = ctx;
         this.admin = admin;
         this.activity = activity;
         this.presenterRegistrar = presenterRegistrar;
+        this.listener1 = listener;
     }
 
     public interface loginListener{
+        void response(String response);
+        void error(String error);
+    }
+
+    public interface registerListener{
         void response(String response);
         void error(String error);
     }
@@ -67,38 +75,46 @@ public class TareaAsincronaLogin extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... strings) {
+        db = Room.databaseBuilder(ctx.getApplicationContext(),
+                DataBase.class, "javaAndroid").build();
+        UserDAO userDao = db.userDao();
         try {
             Thread.sleep(2000);
-            db = Room.databaseBuilder(ctx.getApplicationContext(),
-                    DataBase.class, "javaAndroid").build();
-            UserDAO userDao = db.userDao();
-            List<UserEntity> users = userDao.loadUserByUserName("123");
+            List<UserEntity> users = userDao.loadUserByUserName(strings[2]);
             String opcion = strings[0];
             switch (opcion){
                 case "0":
 
                     break;
                 case "1":
-                    if(!users.isEmpty()){
+                    if(users.isEmpty()){
+                        listener.error("No se encontro al usuario");
                         return "No se encontro al usuario";
-                    }
-                    if(strings[1].equals(userDB) && strings[2].equals(passwordDB)){
-                        admin = new Usuario("Giuseppe");
-                        admin.setUsuario(strings[1]);
-                        admin.setClave(strings[2]);
-                        return "Usuario Existe";
-                    }else{
-                        presenterLogin.mostrarErrorPresenter("Datos No Validos");
                     }
                     for(UserEntity userList : users)
                     {
-                        Toast.makeText(ctx, "Prueba", Toast.LENGTH_SHORT).show();
+                        if(strings[1].equals(userList.userName) && strings[2].equals(userList.password)){
+                            admin = new Usuario(userList.firstName);
+                            admin.setUsuario(strings[1]);
+                            admin.setClave(strings[2]);
+                            return "Usuario Existe";
+                        }
                     }
-                    presenterLogin.mostrarErrorPresenterCampos("Datos No Validos");
-                    break;
+                    return "Error, Usuario o Clave no validos";
                 case "2":
+                    if(users.isEmpty()){
+                        UserEntity userR = new UserEntity();
+                        String UUIDUser= UUID.randomUUID().toString();
+                        userR.setUid(UUIDUser);
+                        userR.setFirstName(strings[1]);
+                        userR.setUserName(strings[2]);
+                        userR.setPassword(strings[3]);
+                        userDao.insertAll(userR);
+                        return "Usuario Registrado";
+                    }else{
+                        return "Usuario Ya Registrado";
+                    }
 
-                    break;
                 default:
                     break;
             }
@@ -116,22 +132,25 @@ public class TareaAsincronaLogin extends AsyncTask<String, Void, String> {
                 presenterLogin.mostrarErrorPresenter(""+s);
                 break;
             case "Usuario Existe":
-                iniciarActivity();
+                presenterLogin.datosLoginVista(admin);
                 break;
-            case "2":
-
+            case "Datos No Validos":
+                presenterLogin.mostrarErrorPresenter("Datos No Validos");
+                break;
+            case "Datos En Campos No Validos":
+                presenterLogin.mostrarErrorPresenterCampos("Datos No Validos");
+                break;
+            case "Usuario Registrado":
+                presenterRegistrar.mostrarErrorPresenter("Usuario Registrado");
+                break;
+            case "Usuario Ya Registrado":
+                presenterRegistrar.mostrarErrorPresenter("Usuario Ya Registrado");
                 break;
             default:
-                presenterLogin.mostrarErrorPresenter("ERROR INESPERADO");
+
                 break;
         }
 
     }
 
-
-    public void iniciarActivity(){
-        intent = new Intent(activity.getApplicationContext(), StartActivity.class);
-        intent.putExtra("Usuario", admin);
-        activity.startActivity(intent);
-    }
 }

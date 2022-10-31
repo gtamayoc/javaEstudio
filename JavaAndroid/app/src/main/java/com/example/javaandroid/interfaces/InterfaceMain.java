@@ -26,14 +26,14 @@ public interface InterfaceMain {
     }
 
     interface PresenterRegistrar{
-        void datosLogin(Usuario user);
+        void datosModelo(Usuario user);
 
         void datosLoginVista(Usuario admin);
         void mostrarErrorPresenter(String error);
     }
 
     interface VistaRegistrar{
-        void datosLogin(Usuario user);
+        void datosVista(Usuario user);
         void datosLoginVista(Usuario admin);
 
         void mostrarErrorMain(String error);
