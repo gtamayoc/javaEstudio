@@ -19,6 +19,13 @@ public class Tools {
         activity.finish();
     }
 
+    public static void iniciarActivityRegister(AppCompatActivity activity, Class<?> activityClass){
+        Intent intent = new Intent(activity.getApplicationContext(), activityClass);
+        intent.setClass(activity, activityClass);
+        activity.startActivity(intent);
+        activity.finish();
+    }
+
     public static void iniciarActivity(AppCompatActivity activity, Class<?> activityClass){
         Intent intent = new Intent(activity.getApplicationContext(), activityClass);
         intent.setClass(activity, activityClass);

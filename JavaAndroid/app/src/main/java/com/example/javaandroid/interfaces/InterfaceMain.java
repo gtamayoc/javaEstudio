@@ -9,6 +9,7 @@ public interface InterfaceMain {
 
         void datosLoginVista(Usuario admin);
         void mostrarErrorPresenter(String error);
+        String validarDatos(String user, String clave);
 
         void mostrarErrorPresenterCampos(String error);
     }
@@ -28,15 +29,17 @@ public interface InterfaceMain {
     interface PresenterRegistrar{
         void datosModelo(Usuario user);
 
-        void datosLoginVista(Usuario admin);
+        void datosLoginVista(String response);
         void mostrarErrorPresenter(String error);
+        void mostrarErrorDataBase(String error);
     }
 
     interface VistaRegistrar{
         void datosVista(Usuario user);
-        void datosLoginVista(Usuario admin);
+        void datosLoginVista(String response);
 
         void mostrarErrorMain(String error);
+        void mostrarErrorDataBase(String error);
     }
 
     interface ModeloRegistrar{

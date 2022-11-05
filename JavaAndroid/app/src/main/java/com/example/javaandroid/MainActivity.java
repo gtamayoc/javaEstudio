@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain.Vis
         ingresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tv.setVisibility(View.GONE);
                 String usuario = user.getText().toString();
                 String clave = password.getText().toString();
                 datosLogin(usuario,clave);
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMain.Vis
     @Override
     public void mostrarErrorMain(String error) {
         tv.setVisibility(View.VISIBLE);
-        tv.setText(""+error);
+        tv.setText(error);
     }
 
     @Override

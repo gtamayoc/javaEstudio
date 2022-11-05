@@ -1,5 +1,9 @@
 package com.example.javaandroid.Presentador;
 
+import static com.example.javaandroid.Constantes.Constantes.EMPTY_FIELDS;
+import static com.example.javaandroid.Constantes.Constantes.NO_MINIMUM_CHARACTERS_FIELD;
+import static com.example.javaandroid.Constantes.Constantes.VALID_FIELDS;
+
 import android.content.Context;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,11 +25,23 @@ public class MainPresenterLogin implements InterfaceMain.PresenterLogin {
 
     @Override
     public void datosLogin(String usuario, String clave) {
-        if(!usuario.equals("") && !clave.equals("")){
-            modeloLogin.logearCredenciales(usuario,clave);
-        }else{
-            mostrarErrorPresenter("Credenciales No VALIDAS");
+        String opcion = validarDatos(usuario,clave);
+        switch (opcion){
+            case "0":
+                break;
+            case VALID_FIELDS:
+                modeloLogin.logearCredenciales(usuario,clave);
+                break;
+            case EMPTY_FIELDS:
+                mostrarErrorPresenter(EMPTY_FIELDS);
+                break;
+            case NO_MINIMUM_CHARACTERS_FIELD:
+                mostrarErrorPresenter(NO_MINIMUM_CHARACTERS_FIELD);
+                break;
+            default:
+                break;
         }
+
     }
 
     @Override
@@ -36,6 +52,18 @@ public class MainPresenterLogin implements InterfaceMain.PresenterLogin {
     @Override
     public void mostrarErrorPresenter(String error) {
         vistaLogin.mostrarErrorMain(error);
+    }
+
+    @Override
+    public String validarDatos(String user, String clave) {
+            if(user.isEmpty() || clave.isEmpty()){
+                return EMPTY_FIELDS;
+            }
+            if(user.length()<3 || clave.length()<3){
+                return NO_MINIMUM_CHARACTERS_FIELD;
+            }
+
+            return VALID_FIELDS;
     }
 
     @Override

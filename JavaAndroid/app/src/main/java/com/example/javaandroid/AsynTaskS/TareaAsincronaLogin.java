@@ -1,7 +1,11 @@
 package com.example.javaandroid.AsynTaskS;
 
-import static com.example.javaandroid.Constantes.Constantes.passwordDB;
-import static com.example.javaandroid.Constantes.Constantes.userDB;
+import static com.example.javaandroid.Constantes.Constantes.USERNAME_REGISTERED;
+import static com.example.javaandroid.Constantes.Constantes.USER_ALREADY_REGISTERED;
+import static com.example.javaandroid.Constantes.Constantes.USER_CREDENTIALS;
+import static com.example.javaandroid.Constantes.Constantes.USER_EMPTY;
+import static com.example.javaandroid.Constantes.Constantes.USER_EXITS;
+import static com.example.javaandroid.Constantes.Constantes.USER_REGISTERED;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,12 +17,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.javaandroid.DataBase.DataBase;
-import com.example.javaandroid.DataBase.UserDAO;
-import com.example.javaandroid.DataBase.UserEntity;
+import com.example.javaandroid.DataBase.DAO.UserDAO;
+import com.example.javaandroid.DataBase.Entitys.AccesoEntity;
+import com.example.javaandroid.DataBase.Entitys.UserAndAcceso;
+import com.example.javaandroid.DataBase.Entitys.UserEntity;
 import com.example.javaandroid.Modelos.Usuario;
-import com.example.javaandroid.Presentador.MainPresenterLogin;
 import com.example.javaandroid.R;
-import com.example.javaandroid.Vista.StartActivity;
 import com.example.javaandroid.interfaces.InterfaceMain;
 
 import java.util.List;
@@ -33,33 +37,33 @@ public class TareaAsincronaLogin extends AsyncTask<String, Void, String> {
     DataBase db;
     InterfaceMain.PresenterLogin presenterLogin;
     InterfaceMain.PresenterRegistrar presenterRegistrar;
-    loginListener listener;
-    registerListener listener1;
+    loginListener listenerLogin;
+    registerListener listenerRegister;
 
-    public TareaAsincronaLogin(AppCompatActivity activity, Context ctx, InterfaceMain.PresenterLogin presenterLogin, Usuario admin, loginListener listener) {
+    public TareaAsincronaLogin(AppCompatActivity activity, Context ctx, InterfaceMain.PresenterLogin presenterLogin, Usuario admin, loginListener listenerLogin) {
         this.ctx = ctx;
         this.admin = admin;
         this.activity = activity;
         this.presenterLogin = presenterLogin;
-        this.listener = listener;
+        this.listenerLogin = listenerLogin;
     }
 
-    public TareaAsincronaLogin(AppCompatActivity activity, Context ctx, InterfaceMain.PresenterRegistrar presenterRegistrar, Usuario admin, registerListener listener) {
+    public TareaAsincronaLogin(AppCompatActivity activity, Context ctx, InterfaceMain.PresenterRegistrar presenterRegistrar, Usuario admin, registerListener listenerLogin) {
         this.ctx = ctx;
         this.admin = admin;
         this.activity = activity;
         this.presenterRegistrar = presenterRegistrar;
-        this.listener1 = listener;
+        this.listenerRegister = listenerLogin;
     }
 
     public interface loginListener{
-        void response(String response);
+        void response(Usuario admin);
         void error(String error);
     }
 
     public interface registerListener{
         void response(String response);
-        void error(String error);
+        void error(String error, String user);
     }
 
     @Override
@@ -75,12 +79,12 @@ public class TareaAsincronaLogin extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... strings) {
-        db = Room.databaseBuilder(ctx.getApplicationContext(),
-                DataBase.class, "javaAndroid").build();
+        db = DataBase.getInstance(ctx);
         UserDAO userDao = db.userDao();
         try {
-            Thread.sleep(2000);
-            List<UserEntity> users = userDao.loadUserByUserName(strings[2]);
+            Thread.sleep(1000);
+            List<UserEntity> users = userDao.loadUserByUserName(strings[1]);
+            List<UserAndAcceso> getUserAndAcceso = userDao.getUserAndAcceso(strings[1], strings[2]);
             String opcion = strings[0];
             switch (opcion){
                 case "0":
@@ -88,8 +92,7 @@ public class TareaAsincronaLogin extends AsyncTask<String, Void, String> {
                     break;
                 case "1":
                     if(users.isEmpty()){
-                        listener.error("No se encontro al usuario");
-                        return "No se encontro al usuario";
+                        return USER_EMPTY;
                     }
                     for(UserEntity userList : users)
                     {
@@ -97,22 +100,27 @@ public class TareaAsincronaLogin extends AsyncTask<String, Void, String> {
                             admin = new Usuario(userList.firstName);
                             admin.setUsuario(strings[1]);
                             admin.setClave(strings[2]);
-                            return "Usuario Existe";
-                        }
+                            return USER_EXITS;
+                        }else
+                            return USER_CREDENTIALS;
                     }
-                    return "Error, Usuario o Clave no validos";
+                    break;
                 case "2":
                     if(users.isEmpty()){
                         UserEntity userR = new UserEntity();
-                        String UUIDUser= UUID.randomUUID().toString();
-                        userR.setUid(UUIDUser);
-                        userR.setFirstName(strings[1]);
-                        userR.setUserName(strings[2]);
-                        userR.setPassword(strings[3]);
+                        AccesoEntity accesR = new AccesoEntity();
+                        String uuidUser = UUID.randomUUID().toString();
+                        String uuidAcces = UUID.randomUUID().toString();
+                        userR.setUserName(strings[1]);
+                        userR.setPassword(strings[2]);
+                        userR.setFirstName(strings[3]);
+                        accesR.setUid(userR.getUid());
+                        accesR.setAid(uuidAcces);
                         userDao.insertAll(userR);
-                        return "Usuario Registrado";
+                        userDao.insertAllAcceso(accesR);
+                        return USER_REGISTERED;
                     }else{
-                        return "Usuario Ya Registrado";
+                        return USER_ALREADY_REGISTERED;
                     }
 
                 default:
@@ -120,7 +128,9 @@ public class TareaAsincronaLogin extends AsyncTask<String, Void, String> {
             }
 
             return strings[0];
-        }catch (Exception e){e.printStackTrace();}
+        }catch (InterruptedException e){
+            e.printStackTrace();
+            Thread.currentThread().interrupt();}
         return "fallo2";
     }
 
@@ -128,26 +138,25 @@ public class TareaAsincronaLogin extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String s) {
         activity.findViewById(R.id.progressBar).setVisibility(View.INVISIBLE);
         switch (s){
-            case "No se encontro al usuario":
-                presenterLogin.mostrarErrorPresenter(""+s);
+            case USER_EMPTY:
+                listenerLogin.error(USER_EMPTY);
                 break;
-            case "Usuario Existe":
-                presenterLogin.datosLoginVista(admin);
+            case USER_EXITS:
+                listenerLogin.response(admin);
                 break;
-            case "Datos No Validos":
+            case USER_CREDENTIALS:
+                listenerLogin.error(USER_CREDENTIALS);
+                break;
+            case USER_REGISTERED:
+                listenerRegister.response(USER_REGISTERED);
+                break;
+            case USER_ALREADY_REGISTERED:
+                listenerRegister.error(USER_ALREADY_REGISTERED,USERNAME_REGISTERED);
+                break;
+            case "fallo2":
                 presenterLogin.mostrarErrorPresenter("Datos No Validos");
                 break;
-            case "Datos En Campos No Validos":
-                presenterLogin.mostrarErrorPresenterCampos("Datos No Validos");
-                break;
-            case "Usuario Registrado":
-                presenterRegistrar.mostrarErrorPresenter("Usuario Registrado");
-                break;
-            case "Usuario Ya Registrado":
-                presenterRegistrar.mostrarErrorPresenter("Usuario Ya Registrado");
-                break;
             default:
-
                 break;
         }
 

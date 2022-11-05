@@ -3,10 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/WPOSS/OneDrive - World Pos Solutions/Documentos/Repositorios/javaEstudio/JavaAndroid/app/src/main/res/drawable-v24/actions.xml" value="0.221875" />
+        <entry key="..\:/Users/WPOSS/OneDrive - World Pos Solutions/Documentos/Repositorios/javaEstudio/JavaAndroid/app/src/main/res/drawable/btn_styles.xml" value="0.221875" />
+        <entry key="..\:/Users/WPOSS/OneDrive - World Pos Solutions/Documentos/Repositorios/javaEstudio/JavaAndroid/app/src/main/res/drawable/button.xml" value="0.221875" />
         <entry key="..\:/Users/WPOSS/OneDrive - World Pos Solutions/Documentos/Repositorios/javaEstudio/JavaAndroid/app/src/main/res/drawable/button_style.xml" value="0.21822916666666667" />
-        <entry key="..\:/Users/WPOSS/OneDrive - World Pos Solutions/Documentos/Repositorios/javaEstudio/JavaAndroid/app/src/main/res/layout/activity_main.xml" value="0.75" />
-        <entry key="..\:/Users/WPOSS/OneDrive - World Pos Solutions/Documentos/Repositorios/javaEstudio/JavaAndroid/app/src/main/res/layout/activity_main_vista.xml" value="0.28306159420289856" />
-        <entry key="..\:/Users/WPOSS/OneDrive - World Pos Solutions/Documentos/Repositorios/javaEstudio/JavaAndroid/app/src/main/res/layout/activity_start.xml" value="0.25" />
+        <entry key="..\:/Users/WPOSS/OneDrive - World Pos Solutions/Documentos/Repositorios/javaEstudio/JavaAndroid/app/src/main/res/font-v26/mail.xml" value="0.39739583333333334" />
+        <entry key="..\:/Users/WPOSS/OneDrive - World Pos Solutions/Documentos/Repositorios/javaEstudio/JavaAndroid/app/src/main/res/font/mail.xml" value="0.39739583333333334" />
+        <entry key="..\:/Users/WPOSS/OneDrive - World Pos Solutions/Documentos/Repositorios/javaEstudio/JavaAndroid/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/WPOSS/OneDrive - World Pos Solutions/Documentos/Repositorios/javaEstudio/JavaAndroid/app/src/main/res/layout/activity_main_vista.xml" value="0.22" />
+        <entry key="..\:/Users/WPOSS/OneDrive - World Pos Solutions/Documentos/Repositorios/javaEstudio/JavaAndroid/app/src/main/res/layout/activity_start.xml" value="0.22" />
+        <entry key="..\:/Users/WPOSS/OneDrive - World Pos Solutions/Documentos/Repositorios/javaEstudio/JavaAndroid/app/src/main/res/layout/btn.xml" value="0.25" />
+        <entry key="..\:/Users/WPOSS/OneDrive - World Pos Solutions/Documentos/Repositorios/javaEstudio/JavaAndroid/app/src/main/res/layout/nav_bar.xml" value="0.20572916666666666" />
+        <entry key="..\:/Users/WPOSS/OneDrive - World Pos Solutions/Documentos/Repositorios/javaEstudio/JavaAndroid/app/src/main/res/menu/bottom_app_bar.xml" value="0.3671875" />
+        <entry key="..\:/Users/WPOSS/OneDrive - World Pos Solutions/Documentos/Repositorios/javaEstudio/JavaAndroid/app/src/main/res/menu/navigation.xml" value="0.20572916666666666" />
       </map>
     </option>
   </component>

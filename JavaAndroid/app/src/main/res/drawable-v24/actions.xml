@@ -1,0 +1,48 @@
+<?xml version ="1.0" encoding ="utf-8"?><!--  Learn More about how to use App Actions: https://developer.android.com/guide/actions/index.html -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="1044dp"
+    android:height="1454dp"
+    android:viewportWidth="1044"
+    android:viewportHeight="1454">
+
+    <group>
+
+        <clip-path android:pathData="M0 0H1044V1454H0V0Z" />
+
+        <group
+            android:pivotX="522"
+            android:pivotY="727"
+            android:scaleX="2"
+            android:scaleY="2">
+
+            <path android:pathData="M0 0V1454H1044V0">
+
+                <aapt:attr name="android:fillColor">
+
+                    <gradient
+                        android:endX="783"
+                        android:endY="727"
+                        android:startX="261"
+                        android:startY="727"
+                        android:type="linear">
+
+                        <item
+                            android:color="#ABBAAB"
+                            android:offset="0" />
+
+                        <item
+                            android:color="#FFFFFF"
+                            android:offset="1" />
+
+                    </gradient>
+
+                </aapt:attr>
+
+            </path>
+
+        </group>
+
+    </group>
+
+</vector>

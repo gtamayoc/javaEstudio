@@ -2,11 +2,16 @@ package com.example.javaandroid.Vista;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.javaandroid.Modelos.Usuario;
@@ -14,7 +19,10 @@ import com.example.javaandroid.R;
 
 public class StartActivity extends AppCompatActivity {
 
-
+    Button btn_omitir;
+    ImageView logo;
+    LinearLayout backgroud;
+    ConstraintLayout nb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +38,23 @@ public class StartActivity extends AppCompatActivity {
 
         }
 
+        btn_omitir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logo.setVisibility(View.GONE);
+                backgroud.setVisibility(View.GONE);
+                btn_omitir.setVisibility(View.GONE);
+                nb.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     private void inicializarComponentes() {
-
-
+        logo = findViewById(R.id.imageView);
+        btn_omitir = findViewById(R.id.button2);
+        backgroud = findViewById(R.id.background);
+        nb = findViewById(R.id.nav_bar);
     }
 
     @Override

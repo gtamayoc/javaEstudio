@@ -1,8 +1,5 @@
 package com.example.javaandroid.Modelo;
 
-import static com.example.javaandroid.Constantes.Constantes.passwordDB;
-import static com.example.javaandroid.Constantes.Constantes.userDB;
-
 import android.content.Context;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,16 +29,17 @@ public class MainModeloRegistrar implements InterfaceMain.ModeloRegistrar {
         asyncTask = new TareaAsincronaLogin(activity, ctx, mainPresenterRegister, admin, new TareaAsincronaLogin.registerListener() {
             @Override
             public void response(String response) {
-                mainPresenterRegister.datosModelo(user);
+                mainPresenterRegister.datosLoginVista(response);
             }
 
             @Override
-            public void error(String error) {
-
+            public void error(String error, String user) {
+                mainPresenterRegister.mostrarErrorPresenter(error);
+                mainPresenterRegister.mostrarErrorDataBase(user);
             }
         });
 
-        asyncTask.execute("2",user.getNombre(),user.getUsuario(),user.getClave());
+        asyncTask.execute("2",user.getUsuario(),user.getClave(),user.getNombre());
 
     }
 }
