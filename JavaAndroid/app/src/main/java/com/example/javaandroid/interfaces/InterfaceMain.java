@@ -24,6 +24,7 @@ public interface InterfaceMain {
 
     interface ModeloLogin {
         void logearCredenciales(String user, String password);
+        void logearCredencialesAPI(String user, String password);
     }
 
     interface PresenterRegistrar{

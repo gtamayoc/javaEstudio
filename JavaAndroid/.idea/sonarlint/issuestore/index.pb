@@ -8,8 +8,6 @@ n
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 p
 @app/src/main/java/com/example/javaandroid/DataBase/DataBase.java,7\8\78df4584a374e7e592e18c998bef40803093d535
-@
-app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
 s
 Capp/src/main/java/com/example/javaandroid/DataBase/DAO/UserDAO.java,6\3\63d0701ccac8197d071b8ca768d711ddd557a5de
 }

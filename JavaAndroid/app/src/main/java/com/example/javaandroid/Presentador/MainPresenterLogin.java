@@ -30,7 +30,7 @@ public class MainPresenterLogin implements InterfaceMain.PresenterLogin {
             case "0":
                 break;
             case VALID_FIELDS:
-                modeloLogin.logearCredenciales(usuario,clave);
+                modeloLogin.logearCredencialesAPI(usuario,clave);
                 break;
             case EMPTY_FIELDS:
                 mostrarErrorPresenter(EMPTY_FIELDS);

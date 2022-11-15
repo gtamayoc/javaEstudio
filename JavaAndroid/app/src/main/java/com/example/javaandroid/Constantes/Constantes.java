@@ -1,11 +1,14 @@
 package com.example.javaandroid.Constantes;
 
 public class Constantes {
+    public static final String BASE_URL = "https://4c15-200-41-79-230.ngrok.io/";
+    public static final String API_KEY = "747f840ea69050e0bf6130b3138bcb69";
     public static final String userDB = "123";
     public static final String passwordDB = "123";
     public static final String Usuario = "Usuario";
 
     //ERRORES
+    public static final String USER_VALID = "Usuario Valido";
     public static final String USER_EMPTY = "No Se Encontro Al Usuario";
     public static final String USER_EXITS = "Usuario Existe";
     public static final String USER_CREDENTIALS = "Usuario o Clave No Validos";

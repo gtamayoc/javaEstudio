@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.javaandroid.Modelos.Usuario;
 import com.example.javaandroid.R;
+import com.example.javaandroid.cliente.Cliente;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -41,12 +42,19 @@ public class StartActivity extends AppCompatActivity {
         btn_omitir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logo.setVisibility(View.GONE);
-                backgroud.setVisibility(View.GONE);
-                btn_omitir.setVisibility(View.GONE);
-                nb.setVisibility(View.VISIBLE);
+                onBackPressed();
             }
         });
+
+//        btn_omitir.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                logo.setVisibility(View.GONE);
+//                backgroud.setVisibility(View.GONE);
+//                btn_omitir.setVisibility(View.GONE);
+//                nb.setVisibility(View.VISIBLE);
+//            }
+//        });
 
     }
 
@@ -59,21 +67,22 @@ public class StartActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Cerrar Aplicacion");
-
-        alertDialogBuilder
-                .setMessage("Hola, ¿Deseas Salir de la Aplicación?")
-                .setCancelable(false)
-                .setPositiveButton("Si",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        finish();
-                    }
-                })
-                .setNegativeButton("No",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                        dialog.cancel();
-                    }
-                }).create().show();
+        super.onBackPressed();
+//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+//        alertDialogBuilder.setTitle("Cerrar Aplicacion");
+//
+//        alertDialogBuilder
+//                .setMessage("Hola, ¿Deseas Salir de la Aplicación?")
+//                .setCancelable(false)
+//                .setPositiveButton("Si",new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        finish();
+//                    }
+//                })
+//                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog,int id) {
+//                        dialog.cancel();
+//                    }
+//                }).create().show();
     }
 }
