@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "read": "nodemon ./data_base/read.js",
     "dev": "nodemon ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

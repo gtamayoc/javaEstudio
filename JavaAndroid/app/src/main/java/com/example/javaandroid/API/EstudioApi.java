@@ -33,6 +33,12 @@ public interface EstudioApi {
             @Path("pass") String pass
     );
 
+    @POST("/login/")
+    Call<LoginResponse> loginPass2(
+            @Query("user") String user,
+            @Query("pass") String pass
+    );
+
     @GET("3/movie/{movie_id}?")
     Call<EstudioApiResponse> getMovie(
             @Path("movie_id") int movie_id,
