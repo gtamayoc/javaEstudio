@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.apiRest.apiRest.models.AccesoModel;
+import com.apiRest.apiRest.models.UsuarioModel;
 import com.apiRest.apiRest.services.AccesoService;
+import com.apiRest.apiRest.services.UsuarioService;
+import com.apiRest.apiRest.utils.Utiles;
 
 @RestController
 @RequestMapping("/acceso")
@@ -20,6 +23,9 @@ public class AccesoController {
     
     @Autowired
     AccesoService accesoService;
+
+    @Autowired
+    UsuarioService usuarioService;
 
     @GetMapping()
     public ArrayList<AccesoModel> getAll(){
@@ -33,6 +39,14 @@ public class AccesoController {
 
     @PostMapping()
     public AccesoModel guardarUsuario(@RequestBody AccesoModel accesoModel){
+        ArrayList<AccesoModel> accesoModels = this.accesoService.getAll();
+        if(Utiles.validarUsuarios(accesoModels, accesoModel.getUsuarioModelId())){
+            return new AccesoModel();
+        }
+        ArrayList<UsuarioModel> usuarios = this.usuarioService.ObtenerUsuarios();
+        if(!Utiles.validarUsuariosId(usuarios, accesoModel.getUsuarioModelId())){
+            return new AccesoModel();
+        }
         //return "{\"message\": \"OK\"}"+ accesoModel.getId() + " " + accesoModel.getUsuarioModelId();
         return this.accesoService.guardarAcceso(accesoModel);
     }

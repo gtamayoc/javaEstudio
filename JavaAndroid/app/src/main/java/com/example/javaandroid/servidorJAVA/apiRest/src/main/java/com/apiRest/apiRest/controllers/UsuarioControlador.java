@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,10 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.apiRest.apiRest.models.UsuarioModel;
 import com.apiRest.apiRest.services.UsuarioService;
+import com.apiRest.apiRest.utils.Utiles;
 
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioControlador {
+
     @Autowired
     UsuarioService usuarioService;
 
@@ -29,10 +33,13 @@ public class UsuarioControlador {
 
     @PostMapping()
     public UsuarioModel guardarUsuario(@RequestBody UsuarioModel usuario){
-        
-
-
-        return this.usuarioService.guardarUsuario(usuario);
+        ArrayList<UsuarioModel> usuarios = this.usuarioService.ObtenerUsuarios();
+        if(Utiles.validarCorreos(usuarios, usuario.getEmail())){
+            return new UsuarioModel();
+        }
+        return new UsuarioModel();
+        //return this.usuarioService.guardarUsuario(usuario);
+        //return "{\"message\": \"OK\"}"+ usuario.getId();
         //return "{\"message\": \"OK\"}"+ usuario.getId() + " " + usuario.getEmail()+ " " + usuario.getNombre();
     }
 
