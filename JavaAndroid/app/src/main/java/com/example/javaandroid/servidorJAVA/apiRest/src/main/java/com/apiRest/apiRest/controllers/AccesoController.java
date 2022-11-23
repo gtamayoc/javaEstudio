@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.apiRest.apiRest.models.Acceso;
 import com.apiRest.apiRest.models.AccesoModel;
 import com.apiRest.apiRest.services.AccesoService;
 
@@ -21,7 +20,6 @@ public class AccesoController {
     
     @Autowired
     AccesoService accesoService;
-    AccesoModel accesoModel;
 
     @GetMapping()
     public ArrayList<AccesoModel> getAll(){
@@ -34,9 +32,9 @@ public class AccesoController {
     //}
 
     @PostMapping()
-    public String guardarUsuario(@RequestBody Acceso acces){
-        return "{\"message\": \"OK\"}"+ accesoModel.getId()+ " " + accesoModel.getUsuarioModelId();
-        //return this.accesoService.guardarAcceso(accesoModel);
+    public AccesoModel guardarUsuario(@RequestBody AccesoModel accesoModel){
+        //return "{\"message\": \"OK\"}"+ accesoModel.getId() + " " + accesoModel.getUsuarioModelId();
+        return this.accesoService.guardarAcceso(accesoModel);
     }
     
     /*@PostMapping()

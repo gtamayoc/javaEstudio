@@ -9,16 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 @Entity
-@Table(name = "acceso", uniqueConstraints = {@UniqueConstraint(name = "uc_acceso", columnNames={"id","id_usuario"})})
+@Table(name = "acceso", uniqueConstraints = {@UniqueConstraint(name = "uc_acceso", columnNames={"id_usuario"})})
 public class AccesoModel implements Serializable{
-
-    public AccesoModel() {
-         
-    }
-
-    public AccesoModel(Acceso acceso) {
-        this.usuarioModelId.setId(acceso.getId_usuario());
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +18,7 @@ public class AccesoModel implements Serializable{
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario", foreignKey = @ForeignKey(name = "fk_id_usuario"), nullable = false)
-    private UsuarioModel usuarioModelId;
+    private UsuarioModel usuarioModelId = new UsuarioModel();
 
     public Long getId() {
         return id;
@@ -45,7 +37,6 @@ public class AccesoModel implements Serializable{
         this.usuarioModelId.setId(id);
     }
 
-    
 
 }
 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.apiRest.apiRest.models.UsuarioModel;
+import com.apiRest.apiRest.services.AccesoService;
 import com.apiRest.apiRest.services.UsuarioService;
 
 @RestController
@@ -29,8 +30,11 @@ public class UsuarioControlador {
 
     @PostMapping()
     public UsuarioModel guardarUsuario(@RequestBody UsuarioModel usuario){
-        //return "{\"message\": \"OK\"}"+ usuario.getId() + " " + usuario.getEmail()+ " " + usuario.getNombre();
+        
+
+
         return this.usuarioService.guardarUsuario(usuario);
+        //return "{\"message\": \"OK\"}"+ usuario.getId() + " " + usuario.getEmail()+ " " + usuario.getNombre();
     }
 
     @GetMapping ( path = "/{id}")

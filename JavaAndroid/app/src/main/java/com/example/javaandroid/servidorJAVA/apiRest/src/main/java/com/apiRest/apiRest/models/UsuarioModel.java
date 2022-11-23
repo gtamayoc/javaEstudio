@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "usuario", uniqueConstraints = {@UniqueConstraint(columnNames={"id","email_usua"})})
+@Table(name = "usuario", uniqueConstraints = {@UniqueConstraint(name = "uc_email", columnNames={"email_usua"})})
 public class UsuarioModel implements Serializable{
 
     @Id

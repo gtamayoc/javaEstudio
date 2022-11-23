@@ -30,8 +30,4 @@ public class AccesoService {
     public Optional<AccesoModel> obtenerPorId(Long id){
         return accesoRepository.findById(id);
     }
-
-    public ArrayList<AccesoModel> obtenerPorUserId(Long id){
-        return accesoRepository.findByIdUsuarioModelId(id);
-    }
 }
