@@ -18,6 +18,8 @@ public class UsuarioModel implements Serializable{
     private String nombre;
     @Column(name = "email_usua", nullable = false)
     private String email;
+    @Column(name = "password_usua", nullable = false)
+    private String password;
     @Column(nullable = false, name = "prioridad_usua")
     private Integer pro;
 
@@ -41,6 +43,12 @@ public class UsuarioModel implements Serializable{
     }
     public void setEmail(String email) {
         this.email = email;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
     public void setPro(Integer pro) {
         this.pro = pro;
