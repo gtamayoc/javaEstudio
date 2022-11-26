@@ -1,7 +1,6 @@
 package com.apiRest.apiRest.security;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Collections;
 
 import javax.servlet.FilterChain;
@@ -31,9 +30,10 @@ public class JWTAutenticationFilter extends UsernamePasswordAuthenticationFilter
             // TODO: handle exception
         }
         
-        UsernamePasswordAuthenticationToken usernamePAT = new UsernamePasswordAuthenticationToken(authCredentials.getEmail(),
-         authCredentials.getPassword(),
-          Collections.emptyList());
+        UsernamePasswordAuthenticationToken usernamePAT = new UsernamePasswordAuthenticationToken(
+            authCredentials.getEmail(),
+            authCredentials.getPassword(),
+            Collections.emptyList());
 
         return getAuthenticationManager().authenticate(usernamePAT);
     }
