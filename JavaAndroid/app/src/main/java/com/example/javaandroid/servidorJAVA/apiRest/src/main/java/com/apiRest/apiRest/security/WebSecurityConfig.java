@@ -14,17 +14,25 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import lombok.AllArgsConstructor;
 
+
 @Configuration
 @AllArgsConstructor
 public class WebSecurityConfig {
 
     private final UserDetailsService userDetailsService;
-    
+    private final JWTAuthorizationFilter jwtAuthorizationFilter;
+
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authManager) throws Exception {
         JWTAutenticationFilter jwtAutenticationFilter = new JWTAutenticationFilter();
         jwtAutenticationFilter.setAuthenticationManager(authManager);
         jwtAutenticationFilter.setFilterProcessesUrl("/login");
+
+        /*      
+        .and()
+        .requestMatchers()
+        .antMatchers("/acceso/**") 
+        */
 
         return http
                 .csrf().disable()
@@ -38,7 +46,7 @@ public class WebSecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(jwtAutenticationFilter)
-                .addFilterBefore(jwtAutenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 

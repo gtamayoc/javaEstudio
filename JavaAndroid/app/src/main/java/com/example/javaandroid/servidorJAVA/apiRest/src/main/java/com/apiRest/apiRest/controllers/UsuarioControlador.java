@@ -35,8 +35,20 @@ public class UsuarioControlador {
         if(Utiles.validarCorreos(usuarios, usuario.getEmail())){
             return new UsuarioModel();
         }
-        return new UsuarioModel();
-        //return this.usuarioService.guardarUsuario(usuario);
+       // return new UsuarioModel();
+       try {
+        usuario = Utiles.generarToken(usuario);
+        return this.usuarioService.guardarUsuario(usuario);
+       } catch (Exception e) {
+        // TODO: handle exception
+       }
+       
+        
+    
+   
+    return new UsuarioModel();
+
+        
         //return "{\"message\": \"OK\"}"+ usuario.getId();
         //return "{\"message\": \"OK\"}"+ usuario.getId() + " " + usuario.getEmail()+ " " + usuario.getNombre();
     }

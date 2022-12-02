@@ -2,6 +2,8 @@ package com.apiRest.apiRest.utils;
 
 import java.util.ArrayList;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import com.apiRest.apiRest.models.AccesoModel;
 import com.apiRest.apiRest.models.UsuarioModel;
 
@@ -17,6 +19,13 @@ public class Utiles {
             }
         }
         return false;
+    }
+
+    public static UsuarioModel generarToken(UsuarioModel users){
+        UsuarioModel tokenUser = users;
+        String passTokenizada = new BCryptPasswordEncoder().encode(users.getPassword());
+        tokenUser.setPassword(passTokenizada);
+        return tokenUser;
     }
 
     public static Boolean validarUsuarios(ArrayList<AccesoModel> accesos, Long id){
