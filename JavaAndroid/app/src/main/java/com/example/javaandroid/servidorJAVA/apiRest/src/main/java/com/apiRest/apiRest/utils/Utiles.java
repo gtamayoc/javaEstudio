@@ -21,6 +21,15 @@ public class Utiles {
         return false;
     }
 
+    public static Boolean validaUsuarios(ArrayList<UsuarioModel> users){
+        for (UsuarioModel user : users) {
+            if(user == null){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static UsuarioModel generarToken(UsuarioModel users){
         UsuarioModel tokenUser = users;
         String passTokenizada = new BCryptPasswordEncoder().encode(users.getPassword());

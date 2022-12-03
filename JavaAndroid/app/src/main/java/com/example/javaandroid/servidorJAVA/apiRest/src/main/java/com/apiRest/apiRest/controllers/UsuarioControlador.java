@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.apiRest.apiRest.models.AccesoModel;
 import com.apiRest.apiRest.models.UsuarioModel;
+import com.apiRest.apiRest.services.AccesoService;
 import com.apiRest.apiRest.services.UsuarioService;
 import com.apiRest.apiRest.utils.Utiles;
 
@@ -23,6 +25,9 @@ public class UsuarioControlador {
 
     @Autowired
     UsuarioService usuarioService;
+    @Autowired
+    AccesoService acceoservice;
+    AccesoModel accesoModelInsert, acc;
 
     @GetMapping()
     public ArrayList<UsuarioModel> obtenerUsuarios(){
@@ -32,20 +37,26 @@ public class UsuarioControlador {
     @PostMapping()
     public UsuarioModel guardarUsuario(@RequestBody UsuarioModel usuario){
         ArrayList<UsuarioModel> usuarios = this.usuarioService.ObtenerUsuarios();
+        if(Utiles.validaUsuarios(usuarios)){
+            UsuarioModel usuariod = usuario;
+            usuariod.setNombre("prueba");
+            return usuariod;
+        }
         if(Utiles.validarCorreos(usuarios, usuario.getEmail())){
             return new UsuarioModel();
         }
        // return new UsuarioModel();
        try {
-        usuario = Utiles.generarToken(usuario);
-        return this.usuarioService.guardarUsuario(usuario);
+        usuario = Utiles.generarToken(usuario); 
+        UsuarioModel user2 = this.usuarioService.guardarUsuario(usuario);
+        acc = new AccesoModel();
+        acc.setUsuarioModelId(user2.getId());
+        this.acceoservice.guardarAcceso(acc);
+        return usuario;
        } catch (Exception e) {
         // TODO: handle exception
        }
-       
-        
-    
-   
+
     return new UsuarioModel();
 
         
