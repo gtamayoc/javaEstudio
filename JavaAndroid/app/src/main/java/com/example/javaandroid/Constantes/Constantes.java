@@ -1,7 +1,7 @@
 package com.example.javaandroid.Constantes;
 
 public class Constantes {
-    public static final String BASE_URL = "https://7eee-200-41-79-230.ngrok.io/";
+    public static final String BASE_URL = "https://d8bc-179-1-132-33.ngrok.io";
     public static final String API_KEY = "8a59916c900035e985d1968f154a77796b60a4a9f3f96fe00eb5bc5d8dc659eaedfc93d7219b49bbad12f008c48de979227caac6bbbd6c606751b31432e62b5c";
     public static final String userDB = "123";
     public static final String passwordDB = "123";
